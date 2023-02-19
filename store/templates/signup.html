@@ -1,0 +1,54 @@
+
+{% extends "base.html" %}
+
+{% block title %}Signup Page !!{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="p-4 m-4">
+        <div class="col-lg-6 mx-auto border rounded pt-5 pb-5">
+            <h3 class="alert alert-light border roudnded" role="alert"><center>Create An Account</center></h3>
+        <form action="/signup" method="POST">
+            {% csrf_token %}
+            <!-- Alert -->
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{error}}
+                  </div>
+            {% endif %}
+
+            <!-- first name -->
+            <div class="form-group">
+                <label for="firstname">First name</label>
+                <input type="firstname" name="firstname" class="form-control" id="firstname" value = "{{values.first_name}}">
+                <!-- <small id="email" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+            </div>
+
+            <!-- last name -->
+            <div class="form-group">
+                <label for="lastname">Last name</label>
+                <input type="lastname" name="lastname" class="form-control" id="lastname" value = "{{values.last_name}}">
+                <!-- <small id="email" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+            </div>
+            
+            <!-- email -->
+            <div class="form-group">
+            <label for="email">Email address</label>
+            <input required type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" value = "{{values.email}}">
+            </div>
+            
+            <!-- Password -->
+            <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" class="form-control" id="password" placeholder="***********">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>
+</div>
+
+{% endblock %}
+

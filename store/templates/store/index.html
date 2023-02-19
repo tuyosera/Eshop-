@@ -1,0 +1,49 @@
+
+{% extends "base.html" %}
+
+{% block title %}Index Page !!{% endblock %}
+
+{% block body %}
+  <div class="row mt-3 ml-3 mr-3">
+    <!-- Display the Category -->
+    <div class="col-lg-3 mx-auto">
+      <!-- list for Category -->
+
+      <ul class="list-group">
+        {% for category in categories %}
+        <a href="/?category={{category.id}}" class="list-group-item list-group-item-action">{{category.name}} {{category.id}}</a>
+          {% comment %} <li class="list-group-item">{{category.name}}{{category.id}}</li> {% endcomment %}
+        {% endfor %}
+      </ul>
+
+
+    </div>
+
+    <!-- TO GET THE LIST OF PRODSUCTS  -->
+    <div id="products" class="col-lg-9 mx-auto">
+    <!-- <div class="container py-3 mt-3"> -->
+    <div class="row mb-4">
+      {% comment %} {{products}} {% endcomment %}
+        {% for product in products %}
+        <div class="card mx-auto mb-4" style="width: 18rem;">
+          <img class="card-img-top" src = "{{product.image.url}}" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{product.name}}</h5>
+            <!-- <p class="card-title">{{product.image.url}}</p> -->
+            <p class="card-text">{{product.price}}<br>{{product.description}}</p>
+          </div>
+            <button type="button" class="btn btn-primary">+Add to cart</button>
+        </div>
+        {% endfor %}
+    </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% comment %} <a href="" class="btn btn-success btn-block btn-facebook"> 
+<i class="fab fa-facebook-f"></i>   
+Login via facebook</a> {% endcomment %}
+
+
