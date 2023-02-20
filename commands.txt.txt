@@ -1,0 +1,42 @@
+## save your project on Git 
+## GIT 
+
+#to open GIT to open : git bash
+
+#type your and and email : 
+1st____  git config --global user.name Pranjul
+2nd____ git config --global user.email "ivontstop@gmail.com"
+
+#create git ignore : touch .gitignore
+#open gitignore : 'foldername/' __ to ignore.txt
+#to initialize git do : git init
+#get your project in STAGING area : git add .
+# to PUSH/SAVE your project in GIT :
+1__ git add --all
+2__ git commit -m "Initial commit"
+#STATUS__ check  git status
+if you get this message 
+"$ git status
+On branch master
+nothing to commit, working tree clean"
+#click on SSH on git website , copy it 
+# run the command in git bash
+git remote add origin 'copy__ssh__link'
+"git@github.com:tuyosera/Eshop-.git"
+# linking my project to the GIT repository 
+git remote add origin git@github.com:tuyosera/Eshop-.git
+# git push origin master (this will fail eventually)
+# add an authentication 
+go to git ---> account ---> settings ---> SSH and GPG keys ---> new ssh keys 
+# generate SSH key via docs.github 
+"https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent"
+use the following command to generate the SSH key :
+"ssh-keygen -t ed25519 -C "your_email@example.com""
+# as soon as you run this command 
+copy the following public key 
+"Your public key has been saved in /c/Users/hi/.ssh/id_ed25519.pub"
+# finally run the command to generate SSH key :
+"cat /c/Users/hi/.ssh/id_ed25519.pub"
+#copy the SSH key and past it in the new ssh key text box
+# run the following command :
+# not run the command "git push origin master"
