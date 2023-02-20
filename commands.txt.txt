@@ -37,6 +37,13 @@ copy the following public key
 "Your public key has been saved in /c/Users/hi/.ssh/id_ed25519.pub"
 # finally run the command to generate SSH key :
 "cat /c/Users/hi/.ssh/id_ed25519.pub"
-#copy the SSH key and past it in the new ssh key text box
+# copy the SSH key and past it in the new ssh key text box
 # run the following command :
 # not run the command "git push origin master"
+
+## after any update in the project 
+
+## git status 
+## git add .
+## git commit -m "New task done"
+## git push origin master
