@@ -32,7 +32,13 @@
             <!-- <p class="card-title">{{product.image.url}}</p> -->
             <p class="card-text">{{product.price}}<br>{{product.description}}</p>
           </div>
-            <button type="button" class="btn btn-primary">+Add to cart</button>
+
+          <form action="/" method="POST">
+            {% csrf_token %}
+            <input type="text" name='product_id' value='{{product.id}}'>
+            <input type="submit" class="btn btn-primary" value="+Add to cart">
+            {% comment %} <button type="button" class="btn btn-primary">+Add to cart</button> {% endcomment %}
+          </form>
         </div>
         {% endfor %}
     </div>

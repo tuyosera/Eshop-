@@ -61,30 +61,55 @@ from store.models.customer import Customer
 #         return render(request,'index.html',data)
 
 def index(request):
-    # return HttpResponse('Hi this is INDEX method ')
-    #empty dict.
-    data = {}
-    # products = Product.get_all_products()
-    categories = Category.get_all_category()
+    ## GET request
+    if request.method == 'GET':
+        # return HttpResponse('Hi this is INDEX method ')
+        #empty dict.
+        data = {}
+        # products = Product.get_all_products()
+        categories = Category.get_all_category()
 
-    # print(products)
-    # print(categories)
-    
-    # Getting the products by category_ID
-    categoryID = request.GET.get('category')
-    
-    if categoryID:
-        products = Product.get_all_products_by_categoryid(categoryID)
-    else:
-        products = Product.get_all_products()
+        # print(products)
+        # print(categories)
         
-    data['products'] = products
-    data['categories'] = categories
-    
-    # catch the SESSION data that we added in LOGIN class
-    print('you are logged in as : ',request.session.get('email'))
-    
-    return render(request,'store/index.html',data)
+        # Getting the products by category_ID
+        categoryID = request.GET.get('category')
+        
+        if categoryID:
+            products = Product.get_all_products_by_categoryid(categoryID)
+        else:
+            products = Product.get_all_products()
+            
+        data['products'] = products
+        data['categories'] = categories
+        
+        # catch the SESSION data that we added in LOGIN class
+        print('you are logged in as : ',request.session.get('email'))
+        
+        return render(request,'store/index.html',data)
+
+    # POST reqeust
+    else:
+        # to get the product id from add to cart button
+        product_id = request.POST.get('product_id')
+        # print(product_id)
+        cart = request.session.get('cart')
+        # if cart already exists 
+        if cart:
+            quantity = cart.get(product_id)
+            if quantity:
+                cart[product_id] = quantity + 1
+            else:
+                cart[product_id] = 1
+        else:
+            cart = {}
+            cart[product_id] = 1
+        request.session['cart'] = cart
+        print('your cart ',request.session['cart'])
+               
+        return redirect('/')
+
+
 
 
 
