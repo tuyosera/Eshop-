@@ -5,6 +5,7 @@ from store import views
 # from django.urls import url
 from .views import Signup , Login , Contact 
 # from store.views import signup , contact , login , Index
+from store import views
 
 
 urlpatterns = [
@@ -13,7 +14,6 @@ urlpatterns = [
     path('signup', Signup.as_view() , name='signup'),
     path('login', Login.as_view() , name='login'),
     path('contact', Contact.as_view() , name='contact')
-    
     # path('', views.index, name='index'),
     # path('about', views.about, name='about'),
     # path('contact', views.contact, name='contact'),

@@ -26,7 +26,7 @@ from store.models.customer import Customer
 
 # Encode and Decode 
 # https://base64.guru/converter/decode
-
+# "cart":{"2":4,"5":1,"6":1,"9":2,"3":1}
 
 
 # Create your views here.
@@ -63,9 +63,34 @@ from store.models.customer import Customer
 def index(request):
     ## GET request
     if request.method == 'GET':
+        
+        # Clearing the Session
+        # this will clear/ refresh all the data in the session
+        # request.session.clear()
+        # request.session.flush()
         # return HttpResponse('Hi this is INDEX method ')
         #empty dict.
         data = {}
+        
+        # Initializing the CART
+        cart = request.session.get('cart')
+        # MEthod 1 
+        if not cart:
+            cart = {}
+        
+        # Method 2 :
+        # if cart:
+        #     pass
+        # else:
+        #     cart = {}
+               
+        
+        
+
+        # if I have to clear the cart object in the session 
+        # request.session.get('cart').clear()
+        
+        
         # products = Product.get_all_products()
         categories = Category.get_all_category()
 
@@ -94,11 +119,24 @@ def index(request):
         product_id = request.POST.get('product_id')
         # print(product_id)
         cart = request.session.get('cart')
+        
+        # if we get any REMOVE product request then cath it here
+        remove = request.POST.get('remove')
+        
         # if cart already exists 
         if cart:
             quantity = cart.get(product_id)
             if quantity:
-                cart[product_id] = quantity + 1
+                # if we get a REMOVE product request
+                if remove:
+                    # if the questity is 1 then delete the product from the CART
+                    if quantity == 1:
+                        # Delete the product from the ID
+                        cart.pop(product_id)
+                    else:    
+                        cart[product_id] = quantity - 1    
+                else:
+                    cart[product_id] = quantity + 1
             else:
                 cart[product_id] = 1
         else:
@@ -108,7 +146,6 @@ def index(request):
         print('your cart ',request.session['cart'])
                
         return redirect('/')
-
 
 
 
@@ -229,7 +266,7 @@ class Login(View):
 
 
 
-## Contacts
+# Contacts
 class Contact(View):
     def get(self,request):
         return render(request,'contact.html')
@@ -243,4 +280,8 @@ class Contact(View):
         contact.save()
         return render(request,'contact.html')
 
+
+
+#Contact
+# 
 
