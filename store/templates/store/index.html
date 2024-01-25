@@ -26,7 +26,7 @@
     <div class="row mb-4">
       {% comment %} {{products}} {% endcomment %}
         {% for product in products %}
-        <div class="card mx-auto mb-4" style="width: 18rem;">
+        <div class="card mx-auto mb-4" id="{{product.id}}" style="width: 18rem;">
           <img class="card-img-top" src = "{{product.image.url}}" alt="Card image cap">
           <div class="card-body">
             <h5 class="card-title">{{product.name}}</h5>
@@ -41,7 +41,7 @@
             <!-- + and - button -->
             <div class="row text-center no-gutters">
               <!-- <input type="submit" value=" - " class="col-2 btn btn-block btn-light"> -->
-              <form action="/" class="col-2" method="post">
+              <form action="/#{{product.id}}" class="col-2" method="post">
                 {% csrf_token %}
                 <input hidden type="text" name='product_id' value='{{product.id}}'>
                 <input hidden type="text" name='remove' value='True'>
@@ -51,7 +51,7 @@
               <div class="text-center col">{{product|cart_quantity:request.session.cart}} in cart</div>
               
               <!-- <input type="submit" value=" + " class="col-2 btn btn-block btn-light"> -->
-              <form action="/" class="col-2" method="post">
+              <form action="/#{{product.id}}" class="col-2" method="post">
                 {% csrf_token %}
                 <input hidden type="text" name='product_id' value='{{product.id}}'>
                 <input type="submit" value=" + " class="btn btn-block btn-light">
@@ -60,7 +60,7 @@
 
             {% else %}
             <!-- When product is not in the CART -->
-            <form action="/" method="POST" class="btn-block">
+            <form action="/#{{product.id}}" method="POST" class="btn-block">
               {% csrf_token %}
               <input hidden type="text" name='product_id' value='{{product.id}}'>
               <input type="submit" class="float-right btn-block btn btn-primary border form-control" value="+Add to cart">
@@ -78,9 +78,25 @@
     </div>
   </div>
 </div>
+
+<!-- Footer -->
+
+  <div class="jumbotron" id="xyz">
+    <h1 class="display-4">Hello, world!</h1>
+    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+    <hr class="my-4">
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    </p>
+  </div>
+
+
 {% endblock %}
 
 
+
+<!-- 
 {% comment %} <a href="" class="btn btn-success btn-block btn-facebook"> 
 <i class="fab fa-facebook-f"></i>   
-Login via facebook</a> {% endcomment %}
+Login via facebook</a> {% endcomment %} -->

@@ -20,8 +20,9 @@ from django.views import View
 
 from store.models.contact import Contact
 
-
 from store.models.customer import Customer
+
+from store.models.orders import Orders
 
 
 # Encode and Decode 
@@ -282,6 +283,68 @@ class Contact(View):
 
 
 
-#Contact
-# 
 
+def logout(request):
+    request.session.clear()
+    return redirect('login')
+
+
+
+
+
+class Cart(View):
+    def get(self,request):
+        # display the products on the console 
+        print('cart page ',request.session.get('cart'))
+        # print only the keys i.e. product_id
+        print('cart page ',list(request.session.get('cart').keys()))
+        # creating the data dictionary 
+        product_dic = {}
+        product_ids_list = list(request.session.get('cart').keys())
+        
+        products = Product.get_products_by_id(product_ids_list)
+        print(products)        
+        return render(request,'cart.html',{'product_dic': products})
+
+
+
+
+
+class CheckOut(View):
+    def post(self,request):
+        address = request.POST.get('address')
+        # phone = int(request.POST.get('phone'))
+        phone = request.POST.get('phone')
+        customer = request.session.get('customer')
+        
+        # to get the products OBJECT 
+        cart = request.session.get('cart')
+        # product_list = list(cart.keys())
+        # list of products in the cart 
+        products = Product.get_products_by_id(list(cart.keys()))
+        print(type(phone))
+        print(address,phone,customer,products)
+        
+        
+        for product in products:
+            quantity = cart.get(product.id),
+            price = product.price,
+            order = Orders(product = product, 
+                           customer = Customer(id=customer),
+                           quantity = cart.get(product.id),
+                           price = product.price,
+                           address = address,
+                           phone = phone)
+            if order.autoCheckValues(product,customer,quantity,price,address,phone):
+                order.placeOrder()
+                print('Order is placed ')
+            else:
+                print('SOme error is here')
+        return redirect('cart')
+    
+    # for checking the connection 
+    # def post(self,request):
+    #     print(request.POST)
+    #     return redirect('cart')
+    
+    
