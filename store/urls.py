@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.urls import path
 from store import views
 # from django.urls import url
-from .views import Signup , Login , Contact 
+from .views import Signup , Login , Contact , Cart , CheckOut
 # from store.views import signup , contact , login , Index
 from store import views
 
@@ -13,7 +13,12 @@ urlpatterns = [
     # path('', Index.as_view() , name="index"),
     path('signup', Signup.as_view() , name='signup'),
     path('login', Login.as_view() , name='login'),
-    path('contact', Contact.as_view() , name='contact')
+    path('contact', Contact.as_view() , name='contact'),
+    path('logout', views.logout , name='logout'),
+    path('cart', Cart.as_view() , name='cart'),
+    path('checkout', CheckOut.as_view() , name='checkout')
+
+    
     # path('', views.index, name='index'),
     # path('about', views.about, name='about'),
     # path('contact', views.contact, name='contact'),

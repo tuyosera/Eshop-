@@ -3,6 +3,7 @@ from .models.product import Product
 from .models.category import Category
 from .models.contact import Contact
 from .models.customer import Customer
+from .models.orders import Orders
 
 
 # Display the name of the PRODUCTS
@@ -21,6 +22,7 @@ admin.site.register(Product,AdminProducts)
 admin.site.register(Category,AdminCategory)
 admin.site.register(Contact)
 admin.site.register(Customer)
+admin.site.register(Orders)
 
 
 
